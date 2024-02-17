@@ -12,9 +12,9 @@ USER_TYPE = (
 )
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
     username = models.CharField(max_length=30, unique=True)
     phone = PhoneNumberField()
     user_type = models.CharField(max_length=12, choices=USER_TYPE)
@@ -46,7 +46,7 @@ class EventUser(models.Model):
     def __str__(self):
         return self.user.first_name
     def save(self, *args, **kwargs):
-        self.user.is_teacher = True
+        self.user.is_eventuser = True
         self.user.save()
         super(EventUser, self).save(*args, **kwargs)
 
